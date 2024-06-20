@@ -48,7 +48,7 @@ Bu proje, ASP.NET Core MVC kullanılarak geliştirilmiş bir web uygulamasıdır
 
 5. Projeyi çalıştırın.
 
-## Göreseller
+## Görseller
 ![](https://github.com/mihrapgozcu/SonMama_Burger/blob/master/giri%C5%9F.png)
 ![](https://github.com/mihrapgozcu/SonMama_Burger/blob/master/kay%C4%B1t%20formu.png)
 ![](https://github.com/mihrapgozcu/SonMama_Burger/blob/master/hesap%20aktifle%C5%9Ftirme.png)
