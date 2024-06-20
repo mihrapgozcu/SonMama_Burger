@@ -1,0 +1,86 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using SonMama_Burger.Models.Entitites
+@using SonMama_Burger.Models.Enum;
+@using SonMama_Burger.VM
+@inject UserManager<AppUser> UserManager
+@model UpdateUserVM
+@{
+    ViewData["Title"] = "Settings";
+}
+@{
+    AppUser user = await UserManager.GetUserAsync(User);
+}
+
+<link rel="stylesheet" type="text/css" href="~/template/profilecss/core.css" />
+<link rel="stylesheet"
+      type="text/css"
+      href="~/template/profilecss/icon-font.min.css" />
+<link rel="stylesheet"
+      type="text/css"
+      href="~/template/profilecss/cropper.css" />
+<link rel="stylesheet" type="text/css" href="~/template/profilecss/style.css" />
+
+<div class="profile-setting">
+    <form method="post">
+        <ul class="profile-edit-list row">
+            <li class="weight-500 col-md-6 offset-3">
+                <h4 class="text-blue h5 mb-20">
+                    Kullanıcı Ayarlarını Güncelle
+                </h4>
+                <div asp-validation-summary="All"></div>
+                <input asp-for="UserID" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Ad">Ad</label>
+                    <input asp-for="Ad" class="form-control form-control-lg"
+                           type="text" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Soyad">Soyad</label>
+                    <input asp-for="Soyad" class="form-control form-control-lg"
+                           type="text" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control form-control-lg"
+                           type="email" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber">Telefon Numarası</label>
+                    <input asp-for="PhoneNumber" class="form-control form-control-lg"
+                           type="text" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="DogumTarihi">Doğum Tarihi</label>
+                    <input asp-for="DogumTarihi" class="form-control form-control-lg date-picker"
+                           type="date" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cinsiyet">Cinsiyet</label>
+                    <div class="d-flex">
+                        <div class="custom-control custom-radio mb-5 mr-20">
+                            <input type="radio"
+                                   asp-for="Cinsiyet"
+                                   class="custom-control-input" value="@Cinsiyet.Erkek" />
+                            <label class="custom-control-label weight-400">Erkek</label>
+                        </div>
+                        <div class="custom-control custom-radio mb-5">
+                            <input type="radio"
+                                   asp-for="Cinsiyet"
+                                   class="custom-control-input" value="@Cinsiyet.Kadin" />
+                            <label class="custom-control-label weight-400">Kadın</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-0">
+                    <input type="submit"
+                           class="btn btn-primary"
+                           value="Güncelle" />
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+
+
+

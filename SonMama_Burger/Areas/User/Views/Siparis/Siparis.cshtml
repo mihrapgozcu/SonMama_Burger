@@ -1,0 +1,54 @@
+﻿
+@using SonMama_Burger.Models.Entitites
+@model List<Siparis>
+@{
+    ViewData["Title"] = "Siparis";
+}
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Siparişlerim</h1>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+           @*  <th>Menü Fotoğrafı</th> *@
+            <th>Menü Adı</th>
+            <th>Boyut</th>
+            @* <th>Extra Malzeme</th> *@
+            <th>Adet</th>
+            <th>Fiyat</th>
+            <th>Satın Alınma Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            // SiparislerMenuler null değilse işlemi gerçekleştirin
+            if (item.SiparislerMenuler != null)
+            {
+                foreach (var siparis in item.SiparislerMenuler)
+                {
+                    <tr>
+                        @* Eğer Fotograf base64 kodluysa, resmi görüntülemek için aşağıdaki satırı açın *@
+                        @* <td><img class="img-fluid" src="data:image/jpeg;base64,@siparis.Menu.Fotograf" style="width:100px; height:100px;" alt="Resim" /></td> *@
+                        <td>@siparis.Menu.Adi</td>
+                        <td>@siparis.Boyut</td>
+                        @* <td>@siparis.</td> *@
+                        <td>@siparis.Adet</td>
+                        <td>@siparis.TotalFiyat</td>
+                        <td>@siparis.OlusturmaZamani</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                // SiparislerMenuler null ise uyarı mesajı göster
+                <tr>
+                    <td colspan="6" class="text-center text-warning">Bu sipariş için menü öğesi bulunmamaktadır.</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

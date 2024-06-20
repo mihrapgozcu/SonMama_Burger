@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using SonMama_Burger.Models.Entitites
+@using SonMama_Burger.VM
+@inject UserManager<AppUser> UserManager
+
+@*  @model SiparisGonderVM *@
+@model SepetiOnaylaVM
+@{
+    decimal totalFiyat = 0;
+    AppUser user = await UserManager.GetUserAsync(User);
+}
+<div class="container-xxl py-5 bg-dark  mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Sipariş Oluştur</h1>
+    </div>
+</div>
+<div id="siparisTablosu">
+    <table class="table table-hover table-warning">
+        <tr>
+            <th>Ürünleriniz</th>
+            <th>Azalt</th>
+            <th>Adet</th>
+            <th>Arttır</th>
+            <th>Toplam Fiyat</th>
+           
+        </tr>
+
+
+        @foreach (var item in Model.Sepettekiler)
+        {
+            totalFiyat += item.Fiyat;
+            <tr>
+              
+                <td>@item.Menu.Adi @item.Boyut.ToString() x @item.Adet.ToString()</td>
+
+                <td><button type="button" class="btn btn-outline-danger" onclick="SepettenSil(@item.ID)">-</button></td>
+                <td>@item.Adet</td>
+                <td><button type="button" class="btn btn-outline-success" onclick="AdetArttır(@item.ID)">+</button></td>
+                <td>@item.Fiyat TL</td>
+
+
+
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@totalFiyat TL</td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+<div>
+    <input type="hidden" value="@user.Id" id="userID" />
+</div>
+<a class="btn product-btn btn-secondary" asp-action="SiparisOnayla" asp-route-id="@user.Id">Siparişi Tamamla</a>
+
+
+
+

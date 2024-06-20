@@ -1,0 +1,132 @@
+﻿@using SonMama_Burger.Models.Enum;
+@using SonMama_Burger.VM
+
+@{
+    ViewData["Title"] = "Register";
+}
+@model RegisterVM
+
+<partial name="_ValidationScriptsPartial" />
+
+<div class="container-xxl py-5 bg-beige hero-header mb-3">
+    <div class="container text-center my-3 pt-3 pb-2">
+        <h1 class="display-3 text-black mb-3 animated slideInDown">Kayıt Ol</h1>
+    </div>
+</div>
+
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Kayıt Formu</h3>
+                        <form id="registerForm" asp-action="Register" asp-controller="User" method="post">
+                            <div asp-validation-summary="All" class="bg-danger text-white"></div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" asp-for="UserName">Kullanıcı Adı</label>
+                                        <input type="text" asp-for="UserName" name="UserName" class="form-control form-control-lg" />
+                                        <span asp-validation-for="UserName" class="bg-danger text-white"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" asp-for="Password">Şifre</label>
+                                        <input type="password" asp-for="Password" name="Password" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Password" class="bg-danger text-white"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" asp-for="Ad">Ad</label>
+                                        <input type="text" asp-for="Ad" name="Ad" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Ad" class="bg-danger text-white"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <label class="form-label" asp-for="Soyad">Soyad</label>
+                                        <input type="text" asp-for="Soyad" name="Soyad" class="form-control form-control-lg" />
+                                        <span asp-validation-for="Soyad" class="bg-danger text-white"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker w-100">
+                                        <label asp-for="DogumTarihi" class="form-label">Doğum Tarihi</label>
+                                        <input type="date" class="form-control form-control-lg" name="DogumTarihi" asp-for="DogumTarihi" />
+                                        <span asp-validation-for="DogumTarihi" class="bg-danger text-white"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <h6 class="mb-2 pb-1">Cinsiyet</h6>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" asp-for="Cinsiyet" value="@Cinsiyet.Kadin" checked />
+                                        <label class="form-check-label" asp-for="Cinsiyet">Kadın</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" asp-for="Cinsiyet" value="@Cinsiyet.Erkek" />
+                                        <label class="form-check-label" asp-for="Cinsiyet">Erkek</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <label class="form-label" asp-for="Email">Email</label>
+                                        <input type="email" asp-for="Email" name="Email" class="form-control form-control-lg" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <label class="form-label" asp-for="PhoneNumber">Telefon Numarası</label>
+                                        <input type="tel" asp-for="PhoneNumber" name="PhoneNumber" class="form-control form-control-lg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-2">
+                                <input class="btn btn-primary btn-lg" type="submit" value="Kayıt Ol" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var form = this;
+
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        }).then(response => {
+            if (response.ok) {
+                alert("Kayıt Başarılı.");
+                window.location.href = '/ConfirmMail/Index'; // Login sayfasına yönlendirme
+            } else {
+                alert("Kayıt başarısız. Lütfen tekrar deneyin.");
+            }
+        }).catch(error => {
+            console.error("Hata:", error);
+            alert("Kayıt başarısız. Lütfen tekrar deneyin.");
+        });
+    });
+</script>
