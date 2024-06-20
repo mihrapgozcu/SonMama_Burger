@@ -33,7 +33,7 @@ Bu proje, ASP.NET Core MVC kullanılarak geliştirilmiş bir web uygulamasıdır
 
 1. Projeyi klonlayın:
     ```sh
-    git clone https://github.com/username/mvc-projesi.git
+    git clone https://github.com/mihrapgozcu/SonMama_Burger/tree/master
     cd mvc-projesi
     ```
 
